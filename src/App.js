@@ -44,7 +44,7 @@ export default function App() {
       </div>
 
       <div className="side-by-side">
-        <div className="choices">
+        <div className="numbers">
           {choices.map((number) => (
             <button
               key={number}
@@ -56,7 +56,7 @@ export default function App() {
           ))}
         </div>
 
-        <div className="chosen">
+        <div className="numbers">
           {chosen.map((number) => (
             <button
               key={number}
@@ -76,6 +76,12 @@ export default function App() {
         <button className="action" onClick={done}>
           Done
         </button>
+      </div>
+
+      <div className="full-width footer">
+        <b>react-number-game-v1</b>
+        <br />
+        read <a href="https://bouwe.io">this blog post</a> on how to build this
       </div>
     </>
   );
