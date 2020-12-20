@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
+import Modal from "./Modal";
 
 function getNumbers() {
   return [1, 2, 3, 4];
@@ -34,14 +35,19 @@ export default function App() {
   }
 
   return (
-    <>
-      <div className="full-width">
-        {status === "playing"
-          ? answer
-          : status === "correct"
-          ? "GOED"
-          : "NIET GOED"}
-      </div>
+    <div className="app">
+      {status !== "playing" && (
+        <Modal>
+          <div style={{ textAlign: "center" }}>
+            <h1>{status}</h1>
+            <button className="action" onClick={reset}>
+              OK
+            </button>
+          </div>
+        </Modal>
+      )}
+
+      <div className="full-width">{answer}</div>
 
       <div className="side-by-side">
         <div className="numbers">
@@ -83,6 +89,6 @@ export default function App() {
         <br />
         read <a href="https://bouwe.io">this blog post</a> on how to build this
       </div>
-    </>
+    </div>
   );
 }
