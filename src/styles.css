@@ -9,9 +9,11 @@
 
 .full-width {
   width: 300px;
-  height: 50px;
   margin: 10px 50px;
   text-align: center;
+}
+
+.answer {
   font-size: 40px;
 }
 

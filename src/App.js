@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import "./styles.css";
 import Modal from "./Modal";
 
-function getNumbers() {
-  return [1, 2, 3, 4];
-}
-
 export default function App() {
-  const [choices, setChoices] = useState(getNumbers);
+  const initialChoices = [1, 2, 3, 4];
+  const [choices, setChoices] = useState(initialChoices);
   const [chosen, setChosen] = useState([]);
   const [status, setStatus] = useState("playing");
 
@@ -29,10 +26,13 @@ export default function App() {
   }
 
   function reset() {
-    setChoices(getNumbers);
+    setChoices(initialChoices);
     setChosen([]);
     setStatus("playing");
   }
+
+  //TODO class "app" hernoemen naar "container".
+  //TODO class "full-width" en "side-by-side" combineren en "row" noemen.
 
   return (
     <div className="app">
@@ -47,7 +47,11 @@ export default function App() {
         </Modal>
       )}
 
-      <div className="full-width">{answer}</div>
+      <div className="full-width">
+        Choose numbers that add up to:
+        <br />
+        <span className="answer">{answer}</span>
+      </div>
 
       <div className="side-by-side">
         <div className="numbers">
