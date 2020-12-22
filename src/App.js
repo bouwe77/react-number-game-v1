@@ -5,29 +5,29 @@ import Modal from "./Modal";
 export default function App() {
   const initialChoices = [1, 2, 3, 4];
   const [choices, setChoices] = useState(initialChoices);
-  const [chosen, setChosen] = useState([]);
+  const [selected, setSelected] = useState([]);
   const [result, setResult] = useState();
 
   const answer = 3;
 
-  function choose(number) {
+  function select(number) {
     setChoices(choices.filter((c) => c !== number));
-    setChosen([...chosen, number]);
+    setSelected([...selected, number]);
   }
 
-  function unchoose(number) {
+  function deselect(number) {
     setChoices([...choices, number]);
-    setChosen(chosen.filter((c) => c !== number));
+    setSelected(selected.filter((c) => c !== number));
   }
 
   function done() {
-    const chosenTotal = chosen.reduce((a, b) => a + b, 0);
-    chosenTotal === answer ? setResult("correct") : setResult("incorrect");
+    const selectedTotal = selected.reduce((a, b) => a + b, 0);
+    selectedTotal === answer ? setResult("correct") : setResult("incorrect");
   }
 
   function reset() {
     setChoices(initialChoices);
-    setChosen([]);
+    setSelected([]);
     setResult();
   }
 
@@ -45,7 +45,7 @@ export default function App() {
       )}
 
       <div className="full-width">
-        Choose numbers that add up to:
+        Select numbers that add up to:
         <br />
         <span className="answer">{answer}</span>
       </div>
@@ -56,7 +56,7 @@ export default function App() {
             <button
               key={number}
               className="number"
-              onClick={() => choose(number)}
+              onClick={() => select(number)}
             >
               {number}
             </button>
@@ -64,11 +64,11 @@ export default function App() {
         </div>
 
         <div className="numbers">
-          {chosen.map((number) => (
+          {selected.map((number) => (
             <button
               key={number}
               className="number"
-              onClick={() => unchoose(number)}
+              onClick={() => deselect(number)}
             >
               {number}
             </button>
