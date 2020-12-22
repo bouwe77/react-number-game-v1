@@ -6,7 +6,7 @@ export default function App() {
   const initialChoices = [1, 2, 3, 4];
   const [choices, setChoices] = useState(initialChoices);
   const [chosen, setChosen] = useState([]);
-  const [status, setStatus] = useState("playing");
+  const [result, setResult] = useState();
 
   const answer = 3;
 
@@ -16,32 +16,29 @@ export default function App() {
   }
 
   function unchoose(number) {
-    setChosen(chosen.filter((c) => c !== number));
     setChoices([...choices, number]);
+    setChosen(chosen.filter((c) => c !== number));
   }
 
   function done() {
-    const result = chosen.reduce((a, b) => a + b, 0);
-    result === answer ? setStatus("correct") : setStatus("incorrect");
+    const chosenTotal = chosen.reduce((a, b) => a + b, 0);
+    chosenTotal === answer ? setResult("correct") : setResult("incorrect");
   }
 
   function reset() {
     setChoices(initialChoices);
     setChosen([]);
-    setStatus("playing");
+    setResult();
   }
 
-  //TODO class "app" hernoemen naar "container".
-  //TODO class "full-width" en "side-by-side" combineren en "row" noemen.
-
   return (
-    <div className="app">
-      {status !== "playing" && (
+    <div className="container">
+      {result && (
         <Modal>
           <div style={{ textAlign: "center" }}>
-            <h1>{status}</h1>
+            <h1>{result}</h1>
             <button className="action" onClick={reset}>
-              OK
+              Try again
             </button>
           </div>
         </Modal>
