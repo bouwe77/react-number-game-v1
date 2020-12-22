@@ -88,7 +88,11 @@ export default function App() {
       <div className="full-width footer">
         <b>react-number-game-v1</b>
         <br />
-        read <a href="https://bouwe.io">this blog post</a> on how to build this
+        read{" "}
+        <a href="https://bouwe.io/learn-react-basics-by-creating-a-number-game">
+          this blog post
+        </a>{" "}
+        on how to build this
       </div>
     </div>
   );

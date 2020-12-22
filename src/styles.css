@@ -19,6 +19,7 @@
 
 .numbers {
   width: 100px;
+  min-height: 80px;
   border: 2px solid darkgrey;
   margin: 10px 40px;
   padding: 5px;
