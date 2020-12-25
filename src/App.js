@@ -3,30 +3,28 @@ import "./styles.css";
 import Modal from "./Modal";
 
 export default function App() {
-  const initialChoices = [1, 2, 3, 4];
-  const [choices, setChoices] = useState(initialChoices);
+  const answer = 3;
+  const choices = [1, 2, 3, 4];
+
   const [selected, setSelected] = useState([]);
   const [result, setResult] = useState();
 
-  const answer = 3;
-
   function select(number) {
-    setChoices(choices.filter((c) => c !== number));
     setSelected([...selected, number]);
   }
 
   function deselect(number) {
-    setChoices([...choices, number]);
     setSelected(selected.filter((c) => c !== number));
   }
 
   function done() {
     const selectedTotal = selected.reduce((a, b) => a + b, 0);
-    selectedTotal === answer ? setResult("correct") : setResult("incorrect");
+    selectedTotal === answer
+      ? setResult("correct!")
+      : setResult("incorrect...");
   }
 
   function reset() {
-    setChoices(initialChoices);
     setSelected([]);
     setResult();
   }
@@ -64,9 +62,9 @@ export default function App() {
         </div>
 
         <div className="numbers">
-          {selected.map((number) => (
+          {selected.map((number, index) => (
             <button
-              key={number}
+              key={index}
               className="number"
               onClick={() => deselect(number)}
             >
