@@ -9,7 +9,7 @@
 
 .full-width {
   width: 300px;
-  margin: 10px 50px;
+  margin: 10px 40px;
   text-align: center;
 }
 
@@ -18,12 +18,11 @@
 }
 
 .numbers {
-  width: 100px;
+  width: 80px;
   min-height: 80px;
   border: 2px solid darkgrey;
   margin: 10px 40px;
-  padding: 5px;
-  text-align: center;
+  padding: 10px;
 }
 
 .number {
