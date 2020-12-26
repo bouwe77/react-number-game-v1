@@ -15,9 +15,7 @@ export default function App() {
 
   function deselect(number) {
     const index = selected.indexOf(number);
-
     if (index === -1) return;
-
     const newSelected = [...selected];
     newSelected.splice(index, 1);
     setSelected(newSelected);
