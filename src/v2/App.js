@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./styles.css";
+import styles from "../App.module.css";
 import Modal from "./Modal";
 import { getQuestion } from "./functions";
 
