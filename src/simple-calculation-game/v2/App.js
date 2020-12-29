@@ -104,7 +104,7 @@ export default function App() {
         <b>simple-calculation-game-v2</b>
         <br />
         read{" "}
-        <a href="https://bouwe.io/learn-react-basics-by-creating-a-number-game">
+        <a href="https://bouwe.io/learn-react-basics-by-creating-a-simple-calculation-game-part-2">
           this blog post
         </a>{" "}
         on how to build this
