@@ -24,6 +24,7 @@ export default function App() {
             }
             onClick={() => setSelectedVersion(version)}
             version={version}
+            key={version}
           >
             {version}
           </button>
