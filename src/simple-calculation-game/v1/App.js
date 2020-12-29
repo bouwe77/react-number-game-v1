@@ -88,7 +88,7 @@ export default function App() {
       </div>
 
       <div className={`${styles["full-width"]} ${styles.footer}`}>
-        <b>react-number-game-v1</b>
+        <b>simple-calculation-game-v1</b>
         <br />
         read{" "}
         <a href="https://bouwe.io/learn-react-basics-by-creating-a-number-game">
