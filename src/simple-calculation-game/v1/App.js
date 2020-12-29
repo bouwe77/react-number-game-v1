@@ -34,30 +34,30 @@ export default function App() {
   }
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       {result && (
         <Modal>
           <div style={{ textAlign: "center" }}>
             <h1>{result}</h1>
-            <button className="action" onClick={reset}>
+            <button className={styles.action} onClick={reset}>
               Try again
             </button>
           </div>
         </Modal>
       )}
 
-      <div className="full-width">
+      <div className={styles["full-width"]}>
         Select numbers that add up to:
         <br />
-        <span className="answer">{answer}</span>
+        <span className={styles.answer}>{answer}</span>
       </div>
 
-      <div className="side-by-side">
-        <div className="numbers">
+      <div className={styles["side-by-side"]}>
+        <div className={styles.numbers}>
           {choices.map((number) => (
             <button
               key={number}
-              className="number"
+              className={styles.number}
               onClick={() => select(number)}
             >
               {number}
@@ -65,11 +65,11 @@ export default function App() {
           ))}
         </div>
 
-        <div className="numbers">
+        <div className={styles.numbers}>
           {selected.map((number, index) => (
             <button
               key={index}
-              className="number"
+              className={styles.number}
               onClick={() => deselect(number)}
             >
               {number}
@@ -78,16 +78,16 @@ export default function App() {
         </div>
       </div>
 
-      <div className="full-width">
-        <button className="action" onClick={reset}>
+      <div className={styles["full-width"]}>
+        <button className={styles.action} onClick={reset}>
           Reset
         </button>
-        <button className="action" onClick={done}>
+        <button className={styles.action} onClick={done}>
           Done
         </button>
       </div>
 
-      <div className="full-width footer">
+      <div className={`${styles["full-width"]} ${styles.footer}`}>
         <b>react-number-game-v1</b>
         <br />
         read{" "}
