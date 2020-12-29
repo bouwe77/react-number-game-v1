@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../App.module.css";
-import Modal from "./Modal";
+import Modal from "../Modal";
 
 export default function App() {
   const answer = 3;

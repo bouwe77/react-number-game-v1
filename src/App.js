@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import V1 from "./v1/App";
-import V2 from "./v2/App";
+import V1 from "./simple-calculation-game/v1/App";
+import V2 from "./simple-calculation-game/v2/App";
 import styles from "./App.module.css";
 
 const components = { v1: V1, v2: V2 };
@@ -14,10 +14,14 @@ export default function App() {
 
   return (
     <>
-      <div>
+      <div className={styles.tabs}>
         {versions.map((version) => (
           <button
-            style={version === selectedVersion ? styles.tabActive : styles.tab}
+            className={
+              version === selectedVersion
+                ? `${styles.tab} ${styles.active}`
+                : styles.tab
+            }
             onClick={() => setSelectedVersion(version)}
             version={version}
           >

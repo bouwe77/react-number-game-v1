@@ -1,6 +1,16 @@
+.tabs {
+  width: 100%;
+  background-color: #eee;
+  border-bottom: 3px solid #aaa;
+}
+
 .tab {
-  width: 100px;
+  min-width: 150px;
+  border: 0;
+  padding: 8px;
+  background-color: transparent;
 }
 
 .active {
+  background-color: #aaa;
 }

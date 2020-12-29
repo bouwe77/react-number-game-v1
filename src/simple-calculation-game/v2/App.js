@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../App.module.css";
-import Modal from "./Modal";
+import Modal from "../Modal";
 import { getQuestion } from "./functions";
 
 // Wat heb/ga ik aangepast aan de code:
@@ -101,7 +101,7 @@ export default function App() {
       </div>
 
       <div className={`${styles["full-width"]} ${styles.footer}`}>
-        <b>react-number-game-v1</b>
+        <b>react-number-game-v2</b>
         <br />
         read{" "}
         <a href="https://bouwe.io/learn-react-basics-by-creating-a-number-game">
