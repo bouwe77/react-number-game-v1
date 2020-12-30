@@ -1,36 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import styles from "../App.module.css";
 import Modal from "../Modal";
+import { getQuestion } from "./functions";
 
 export default function App() {
-  const answer = 3;
-  const choices = [1, 2, 3, 4];
+  const initialState = {
+    question: { choices: [] },
+    selected: [],
+    result: null
+  };
 
-  const [selected, setSelected] = useState([]);
-  const [result, setResult] = useState(null);
+  function myReducer(state, action) {
+    switch (action.type) {
+      case "RESET":
+        return { ...state, selected: [], result: null };
+      case "NEW_QUESTION":
+        return { ...state, question: action.payload.question };
+      case "ANSWER_QUESTION": {
+        const selectedTotal = state.selected.reduce((a, b) => a + b, 0);
+        const result = selectedTotal === answer ? "correct!" : "incorrect...";
+        return { ...state, result };
+      }
+      case "SELECT":
+        const newSelected = [...state.selected, action.payload.number];
+        return { ...state, selected: newSelected };
+      case "DESELECT": {
+        const index = state.selected.indexOf(action.payload.number);
+        if (index === -1) return state;
+        const newSelected = [...state.selected];
+        newSelected.splice(index, 1);
+        return { ...state, selected: newSelected };
+      }
+      default:
+        return state;
+    }
+  }
+
+  const [state, dispatch] = useReducer(myReducer, initialState);
+
+  const {
+    question: { answer, choices },
+    selected,
+    result
+  } = state.question;
+
+  useEffect(() => {
+    if (!result) {
+      const question = getQuestion();
+      dispatch({ type: "NEW_QUESTION", payload: { question } });
+    }
+  }, [result]);
 
   function select(number) {
-    setSelected([...selected, number]);
+    dispatch({ type: "SELECT", payload: { number } });
   }
 
   function deselect(number) {
-    const index = selected.indexOf(number);
-    if (index === -1) return;
-    const newSelected = [...selected];
-    newSelected.splice(index, 1);
-    setSelected(newSelected);
+    dispatch({ type: "DESELECT", payload: { number } });
   }
 
   function done() {
-    const selectedTotal = selected.reduce((a, b) => a + b, 0);
-    selectedTotal === answer
-      ? setResult("correct!")
-      : setResult("incorrect...");
+    dispatch({ type: "ANSWER_QUESTION" });
   }
 
   function reset() {
-    setSelected([]);
-    setResult();
+    dispatch({ type: "RESET" });
   }
 
   return (
@@ -88,10 +122,10 @@ export default function App() {
       </div>
 
       <div className={`${styles["full-width"]} ${styles.footer}`}>
-        <b>simple-calculation-game-v1</b>
+        <b>simple-calculation-game-v3</b>
         <br />
         read{" "}
-        <a href="https://bouwe.io/learn-react-basics-by-creating-a-simple-calculation-game-part-1">
+        <a href="https://bouwe.io/learn-react-basics-by-creating-a-simple-calculation-game-part-3">
           this blog post
         </a>{" "}
         on how to build this

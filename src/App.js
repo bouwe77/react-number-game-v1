@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import V1 from "./simple-calculation-game/v1/App";
 import V2 from "./simple-calculation-game/v2/App";
+import V3 from "./simple-calculation-game/v3/App";
 import styles from "./App.module.css";
 
-const components = { v1: V1, v2: V2 };
+const components = { v1: V1, v2: V2, v3: V3 };
 
 export default function App() {
   const versions = Object.keys(components);
