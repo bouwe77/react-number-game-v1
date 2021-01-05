@@ -18,7 +18,8 @@ export default function App() {
         return { ...state, question: action.payload.question };
       case "ANSWER_QUESTION": {
         const selectedTotal = state.selected.reduce((a, b) => a + b, 0);
-        const result = selectedTotal === answer ? "correct!" : "incorrect...";
+        const result =
+          selectedTotal === state.question.answer ? "correct!" : "incorrect...";
         return { ...state, result };
       }
       case "SELECT":
@@ -42,7 +43,7 @@ export default function App() {
     question: { answer, choices },
     selected,
     result
-  } = state.question;
+  } = state;
 
   useEffect(() => {
     if (!result) {
