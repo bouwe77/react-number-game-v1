@@ -3,46 +3,50 @@ import styles from "../App.module.css";
 import Modal from "../Modal";
 import { getQuestion } from "./functions";
 
-export default function App() {
-  const initialState = {
-    question: { choices: [] },
-    selected: [],
-    result: null
-  };
+const initialState = {
+  question: { choices: [] },
+  selected: [],
+  result: null,
+  score: 0
+};
 
-  function myReducer(state, action) {
-    switch (action.type) {
-      case "RESET":
-        return { ...state, selected: [], result: null };
-      case "NEW_QUESTION":
-        return { ...state, question: action.payload.question };
-      case "ANSWER_QUESTION": {
-        const selectedTotal = state.selected.reduce((a, b) => a + b, 0);
-        const result =
-          selectedTotal === state.question.answer ? "correct!" : "incorrect...";
-        return { ...state, result };
+function appReducer(state, action) {
+  switch (action.type) {
+    case "RESET":
+      return { ...state, selected: [], result: null };
+    case "NEW_QUESTION":
+      return { ...state, question: action.payload.question };
+    case "ANSWER_QUESTION": {
+      const selectedTotal = state.selected.reduce((a, b) => a + b, 0);
+      if (selectedTotal === state.question.answer) {
+        return { ...state, result: "correct!", score: state.score + 1 };
+      } else {
+        return { ...state, result: "incorrect..." };
       }
-      case "SELECT":
-        const newSelected = [...state.selected, action.payload.number];
-        return { ...state, selected: newSelected };
-      case "DESELECT": {
-        const index = state.selected.indexOf(action.payload.number);
-        if (index === -1) return state;
-        const newSelected = [...state.selected];
-        newSelected.splice(index, 1);
-        return { ...state, selected: newSelected };
-      }
-      default:
-        return state;
     }
+    case "SELECT":
+      const newSelected = [...state.selected, action.payload.number];
+      return { ...state, selected: newSelected };
+    case "DESELECT": {
+      const index = state.selected.indexOf(action.payload.number);
+      if (index === -1) return state;
+      const newSelected = [...state.selected];
+      newSelected.splice(index, 1);
+      return { ...state, selected: newSelected };
+    }
+    default:
+      return state;
   }
+}
 
-  const [state, dispatch] = useReducer(myReducer, initialState);
+export default function App() {
+  const [state, dispatch] = useReducer(appReducer, initialState);
 
   const {
     question: { answer, choices },
     selected,
-    result
+    result,
+    score
   } = state;
 
   useEffect(() => {
@@ -52,34 +56,23 @@ export default function App() {
     }
   }, [result]);
 
-  function select(number) {
-    dispatch({ type: "SELECT", payload: { number } });
-  }
-
-  function deselect(number) {
-    dispatch({ type: "DESELECT", payload: { number } });
-  }
-
-  function done() {
-    dispatch({ type: "ANSWER_QUESTION" });
-  }
-
-  function reset() {
-    dispatch({ type: "RESET" });
-  }
-
   return (
     <div className={styles.container}>
       {result && (
         <Modal>
           <div style={{ textAlign: "center" }}>
             <h1>{result}</h1>
-            <button className={styles.action} onClick={reset}>
+            <button
+              className={styles.action}
+              onClick={() => dispatch({ type: "RESET" })}
+            >
               Try again
             </button>
           </div>
         </Modal>
       )}
+
+      <div className={styles["full-width"]}>Score: {score}</div>
 
       <div className={styles["full-width"]}>
         Select numbers that add up to:
@@ -93,7 +86,7 @@ export default function App() {
             <button
               key={number}
               className={styles.number}
-              onClick={() => select(number)}
+              onClick={() => dispatch({ type: "SELECT", payload: { number } })}
             >
               {number}
             </button>
@@ -105,7 +98,9 @@ export default function App() {
             <button
               key={index}
               className={styles.number}
-              onClick={() => deselect(number)}
+              onClick={() =>
+                dispatch({ type: "DESELECT", payload: { number } })
+              }
             >
               {number}
             </button>
@@ -114,10 +109,16 @@ export default function App() {
       </div>
 
       <div className={styles["full-width"]}>
-        <button className={styles.action} onClick={reset}>
+        <button
+          className={styles.action}
+          onClick={() => dispatch({ type: "RESET" })}
+        >
           Reset
         </button>
-        <button className={styles.action} onClick={done}>
+        <button
+          className={styles.action}
+          onClick={() => dispatch({ type: "ANSWER_QUESTION" })}
+        >
           Done
         </button>
       </div>
